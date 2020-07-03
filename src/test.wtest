@@ -68,3 +68,5 @@ test "asociacion de plantas"
 	assert.that(parcelaIndustrial.seAsociaBienCon(quinoa1))
 	assert.notThat(parcelaIndustrial.seAsociaBienCon(sojaTransgenica1))
 }
+
+
