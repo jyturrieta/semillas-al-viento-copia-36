@@ -15,14 +15,8 @@ object inta
 		return parcelas.filter({parcela => parcela.cantidadDePlantas() > 4})
 	}
 	
-	method porcentajesDeLasDeMasDe4()
+	method parcelaMasAutosustentable()
 	{
-		return self.parcelasConMasDe4().map({parcela => parcela.porcentajeDeBienAsociadas()})
-	}
-	
-	method masAutosustentable()
-	{
-		return self.porcentajesDeLasDeMasDe4().max()
+		return self.parcelasConMasDe4().max({parcela => parcela.porcentajeDeBienAsociadas()})
 	}
 }
-
