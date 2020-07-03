@@ -1,0 +1,70 @@
+import plantas.*
+import parcelas.*
+
+test "test plantas" 
+{
+	const menta1 = new Menta(altura = 1, anioDeObtencion = 1997)
+	const menta2 = new Menta(altura = 0.3, anioDeObtencion = 2001)
+	assert.that(menta1.daSemillasNuevas())
+	assert.equals(3, menta1.espacioQueOcupa())
+	assert.notThat(menta2.daSemillasNuevas())
+	assert.equals(0.9, menta2.espacioQueOcupa())
+	
+	const soja1 = new Soja(altura = 0.6, anioDeObtencion = 2009)
+	assert.equals(8, soja1.horasToleradas())
+	assert.notThat(soja1.daSemillasNuevas())
+	assert.equals(0.3, soja1.espacioQueOcupa())
+	
+	const quinoa1 = new Quinoa(altura = 0.4, anioDeObtencion = 2010, espacioQueOcupa = 0.2)
+	assert.that(quinoa1.daSemillasNuevas())
+	const quinoa2 = new Quinoa(altura = 0.5, anioDeObtencion = 2003, espacioQueOcupa = 0.9)
+	assert.that(quinoa2.daSemillasNuevas())
+	
+	
+}
+
+test "test parcelas"
+{
+	const parcela1 = new Parcela(ancho = 20, largo = 1, horasDeSol = 10)
+	assert.equals(20, parcela1.superficie())
+	assert.equals(4, parcela1.cantidadMaximaDePlantas()) 
+	const soja1 = new Soja(altura = 1, anioDeObtencion = 2010)
+	parcela1.plantarUnaPlanta(soja1)
+	parcela1.plantarUnaPlanta(soja1)
+	parcela1.plantarUnaPlanta(soja1)
+	parcela1.plantarUnaPlanta(soja1)
+	assert.notThat(parcela1.tieneSangreJoven())
+	assert.throwsException{parcela1.plantarUnaPlanta(soja1)}
+}
+
+test "parcelas ideales"
+{
+	const parcela1 = new Parcela(ancho = 20, largo = 1, horasDeSol = 10)
+	const menta1 = new Menta(altura = 1, anioDeObtencion = 1997)
+	const soja1 = new Soja(altura = 0.6, anioDeObtencion = 2009)
+	const quinoa1 = new Quinoa(altura = 0.4, anioDeObtencion = 2010, espacioQueOcupa = 0.2)
+	const sojaTransgenica1 = new SojaTransgenica(altura = 0.8, anioDeObtencion = 2014)
+	parcela1.plantarUnaPlanta(soja1)
+	assert.that(menta1.leResultaIdeal(parcela1))
+	assert.notThat(soja1.leResultaIdeal(parcela1))
+	assert.that(quinoa1.leResultaIdeal(parcela1))
+	assert.notThat(sojaTransgenica1.leResultaIdeal(parcela1))
+}
+
+test "asociacion de plantas"
+{
+	const parcelaEcologica = new Ecologica(ancho = 10, largo = 3, horasDeSol = 7)
+	const parcelaIndustrial = new Industrial(ancho = 12, largo = 6, horasDeSol = 8)
+	const menta1 = new Menta(altura = 1, anioDeObtencion = 1997)
+	const soja1 = new Soja(altura = 0.6, anioDeObtencion = 2009)
+	const quinoa1 = new Quinoa(altura = 0.4, anioDeObtencion = 2010, espacioQueOcupa = 0.2)
+	const sojaTransgenica1 = new SojaTransgenica(altura = 0.8, anioDeObtencion = 2014)
+	assert.notThat(parcelaEcologica.seAsociaBienCon(menta1))
+	assert.notThat(parcelaEcologica.seAsociaBienCon(soja1))
+	assert.notThat(parcelaEcologica.seAsociaBienCon(quinoa1))
+	assert.notThat(parcelaEcologica.seAsociaBienCon(sojaTransgenica1))
+	assert.notThat(parcelaIndustrial.seAsociaBienCon(menta1))
+	assert.notThat(parcelaIndustrial.seAsociaBienCon(soja1))
+	assert.that(parcelaIndustrial.seAsociaBienCon(quinoa1))
+	assert.notThat(parcelaIndustrial.seAsociaBienCon(sojaTransgenica1))
+}
