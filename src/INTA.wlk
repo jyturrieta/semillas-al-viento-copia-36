@@ -20,3 +20,5 @@ object inta
 		return self.parcelasConMasDe4().max({parcela => parcela.porcentajeDeBienAsociadas()})
 	}
 }
+
+

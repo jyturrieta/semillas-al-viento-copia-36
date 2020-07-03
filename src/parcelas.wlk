@@ -82,3 +82,4 @@ class Industrial inherits Parcela
 		return plantas.size() <= 2 and unaPlanta.esFuerte()
 	}
 }
+
